@@ -1,0 +1,60 @@
+
+CREATE DATABASE crm_mvc;
+USE crm_mvc;
+
+CREATE TABLE IF NOT EXISTS roles (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    description VARCHAR(100),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS accounts (
+    id INT NOT NULL AUTO_INCREMENT,
+    email VARCHAR(100) NOT NULL unique,
+    password VARCHAR(100) NOT NULL,
+    fullname VARCHAR(100) NOT NULL,
+    phone varchar(100),
+    address varchar(100),
+    avatar VARCHAR(100),
+    role_id INT NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS status (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS projects (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    start_date DATE,
+    end_date DATE,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS tasks (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    start_date DATE,
+    end_date DATE,
+    account_id INT NOT NULL,
+    project_id INT NOT NULL,
+    status_id INT NOT NULL,
+    PRIMARY KEY (id)
+);
+
+ALTER TABLE accounts ADD FOREIGN KEY (role_id) REFERENCES roles (id)  ON DELETE CASCADE;
+ALTER TABLE tasks ADD FOREIGN KEY (account_id) REFERENCES accounts (id)  ON DELETE CASCADE;
+ALTER TABLE tasks ADD FOREIGN KEY (project_id) REFERENCES projects (id)  ON DELETE CASCADE;
+ALTER TABLE tasks ADD FOREIGN KEY (status_id) REFERENCES status (id)  ON DELETE CASCADE;
+
+INSERT INTO roles( name, description ) VALUES ("ROLE_ADMIN", "Quan ly he thong");
+INSERT INTO roles( name, description ) VALUES ("ROLE_MANAGER", "Quan ly");
+INSERT INTO roles( name, description ) VALUES ("ROLE_USER", "nhan vien");
+
+INSERT INTO status( name ) VALUES ("hoan thanh");
+INSERT INTO status( name ) VALUES ("dang thuc hien");
+INSERT INTO status( name ) VALUES ("chua thuc hien");
