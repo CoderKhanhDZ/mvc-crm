@@ -12,14 +12,13 @@ import mvcproject.java11.crm.model.Task;
 
 public class TaskRepository extends AbstractRepository<Task> {
 
-	
-	public int updateTask(Task task) {
-		
+	public void updateTask(Task task) {
+
 		final String query = "update tasks set name=?, start_date=?, end_date=?, account_id=?, project_id=?, status_id=? where id = ?;";
-		
-		return excuteQueryUpdate(connection -> {
+
+		excuteQueryUpdate(connection -> {
 			PreparedStatement statement = connection.prepareStatement(query);
-			
+
 			statement.setString(1, task.getName());
 			statement.setDate(2, Date.valueOf(task.getStart_date()));
 			statement.setDate(3, Date.valueOf(task.getEnd_date()));
@@ -32,10 +31,10 @@ public class TaskRepository extends AbstractRepository<Task> {
 		});
 	}
 
-	public int deleteTask(int id) {
+	public void deleteTask(int id) {
 		String query = "delete from tasks where id = ?;";
-		
-		return excuteQueryUpdate(connection -> {
+
+		excuteQueryUpdate(connection -> {
 			PreparedStatement statement = connection.prepareStatement(query);
 			statement.setInt(1, id);
 
@@ -43,26 +42,26 @@ public class TaskRepository extends AbstractRepository<Task> {
 		});
 	}
 
-	public int insertTask(Task task) {
+	public void insertTask(Task task) {
 		String query = "INSERT INTO tasks (name,start_date, end_date, project_id, account_id, status_id) VALUES  (?,?,?,?,?,?);";
-		return excuteQueryUpdate(connection -> {
+		excuteQueryUpdate(connection -> {
 			PreparedStatement statement = connection.prepareStatement(query);
-			
+
 			statement.setString(1, task.getName());
 			statement.setDate(2, Date.valueOf(task.getStart_date()));
 			statement.setDate(3, Date.valueOf(task.getEnd_date()));
 			statement.setInt(4, task.getProject_id());
 			statement.setInt(5, task.getAccount_id());
 			statement.setInt(6, task.getStatus_id());
-			
+
 			return statement.executeUpdate();
 		});
 	}
 
 	public List<Task> getAllTask() {
-		
+
 		final String query = "SELECT * FROM tasks";
-		
+
 		return excuteQuery(connection -> {
 			PreparedStatement statement = connection.prepareStatement(query);
 			ResultSet res = statement.executeQuery();
@@ -71,7 +70,7 @@ public class TaskRepository extends AbstractRepository<Task> {
 			Task task;
 
 			while (res.next()) {
-			//	id, name, start_date, end_date, account_id, project_id, status_id
+				// id, name, start_date, end_date, account_id, project_id, status_id
 				task = new Task();
 				task.setId(res.getInt("id"));
 				task.setName(res.getString("name"));
@@ -87,9 +86,9 @@ public class TaskRepository extends AbstractRepository<Task> {
 	}
 
 	public Task getTaskById(int id) {
-		
+
 		String query = "SELECT * FROM tasks WHERE id =? ";
-		
+
 		return excuteQuerySingle(connection -> {
 
 			PreparedStatement statement = connection.prepareStatement(query);
@@ -112,13 +111,11 @@ public class TaskRepository extends AbstractRepository<Task> {
 		});
 	}
 
-	public List<Task> getByKeyword(String keyword, int index, int limit) {
+	public List<Task> getTaskByKeyword(String keyword, int index, int record_on_page) {
 
 		StringBuilder query = new StringBuilder("select * from tasks where name like '%");
-		query.append(keyword).append("%' limit ")
-		.append(index).append(",")
-		.append(limit);	
-		
+		query.append(keyword).append("%' limit ").append(index).append(",").append(record_on_page);
+
 		return excuteQuery(connection -> {
 			PreparedStatement statement = connection.prepareStatement(query.toString());
 			ResultSet res = statement.executeQuery();
@@ -146,30 +143,30 @@ public class TaskRepository extends AbstractRepository<Task> {
 	public int getTotalRecordTask(String keyword) {
 
 		final String query = "SELECT COUNT(*) AS total_record  FROM tasks WHERE name LIKE '%" + keyword + "%'";
-		return excuteQueryUpdate(connnection -> {
+		return excuteQueryInteger(connnection -> {
 			PreparedStatement statement = connnection.prepareStatement(query);
 			ResultSet resultSet = statement.executeQuery();
 
-	
-			if(!resultSet.next()) return 0;
+			if (!resultSet.next())
+				return 0;
 			return resultSet.getInt("total_record");
 		});
 	}
-	
-	private LocalDate getDateFromResultSet(String columnName, ResultSet resultSet) {
-        Date time;
 
-        try {
-            time = resultSet.getDate(columnName);
-            return time == null ? null : time.toLocalDate();
-        } catch (SQLException e) {
-            return null;
-        }
-    }
-	
+	private LocalDate getDateFromResultSet(String columnName, ResultSet resultSet) {
+		Date time;
+
+		try {
+			time = resultSet.getDate(columnName);
+			return time == null ? null : time.toLocalDate();
+		} catch (SQLException e) {
+			return null;
+		}
+	}
+
 	public List<Task> getTaskByAccountId(int accountId) {
 		String query = "SELECT name,start_date,end_date,status_id FROM tasks where account_id = ? ;";
-		
+
 		return excuteQuery(connection -> {
 			PreparedStatement statement = connection.prepareStatement(query.toString());
 			statement.setInt(1, accountId);
@@ -217,6 +214,5 @@ public class TaskRepository extends AbstractRepository<Task> {
 			return tasks;
 		});
 	}
-	
-	
+
 }

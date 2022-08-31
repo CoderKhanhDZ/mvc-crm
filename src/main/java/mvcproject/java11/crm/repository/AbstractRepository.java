@@ -25,7 +25,15 @@ public class AbstractRepository<T> {
 		}
 	}
 	
-	public Integer excuteQueryUpdate(JdbcExcute<Integer> processor){
+	public void excuteQueryUpdate(JdbcExcute<Integer> processor){
+		try(Connection connection = MySqlConnection.getConnection()){
+			 processor.processQuery(connection);
+		}catch (SQLException e) {
+			throw new DatabaseNotFoundException(e.getMessage());
+		}
+	}
+	
+	public Integer excuteQueryInteger(JdbcExcute<Integer> processor){
 		try(Connection connection = MySqlConnection.getConnection()){
 			return processor.processQuery(connection);
 		}catch (SQLException e) {
@@ -33,5 +41,12 @@ public class AbstractRepository<T> {
 		}
 	}
 	
+	public Boolean existedBy(JdbcExcute<Boolean> processor){
+		try(Connection connection = MySqlConnection.getConnection()){
+			return processor.processQuery(connection);
+		}catch (SQLException e) {
+			throw new DatabaseNotFoundException(e.getMessage());
+		}
+	}
 
 }

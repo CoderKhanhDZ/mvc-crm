@@ -6,10 +6,11 @@ import mvcproject.java11.crm.model.Account;
 
 public interface iAccountService {
 	
-	int insertAccount(Account account);
-	int updateAccount(Account account);
-	int deleteAccount(int id);
+	void insertAccount(Account account);
+	void updateAccount(Account account);
+	void deleteAccount(int id);
 	int getTotalRecordAccount(String keyword);
+	boolean existedByEmail(String email);
 	Account getAccountById(int id);
 	List<Account> getAllAccount();
 	List<Account> getAccountByKeyword(String keyword, int index, int limit);

@@ -13,11 +13,11 @@ import mvcproject.java11.crm.model.Project;
 
 public class ProjectRepository extends AbstractRepository<Project> {
 
-	public int updateProject(Project project) {
+	public void updateProject(Project project) {
 
 		final String query = "update projects set  name=?, start_date=? , end_date=? where id = ?;";
 
-		return excuteQueryUpdate(connection -> {
+		 excuteQueryUpdate(connection -> {
 			PreparedStatement statement = connection.prepareStatement(query);
 
 			statement.setString(1, project.getName());
@@ -29,10 +29,10 @@ public class ProjectRepository extends AbstractRepository<Project> {
 		});
 	}
 
-	public int deleteProject(int id) {
+	public void deleteProject(int id) {
 		final String query = "delete from projects where id = ?;";
 
-		return excuteQueryUpdate(connection -> {
+		excuteQueryUpdate(connection -> {
 			PreparedStatement statement = connection.prepareStatement(query);
 
 			statement.setInt(1, id);
@@ -41,10 +41,10 @@ public class ProjectRepository extends AbstractRepository<Project> {
 		});
 	}
 
-	public int insertProject(Project project) {
+	public void insertProject(Project project) {
 		final String query = "INSERT INTO projects (name, start_date, end_date) VALUES  (?,?,?)";
 
-		return excuteQueryUpdate(connection -> {
+		 excuteQueryUpdate(connection -> {
 			PreparedStatement statement = connection.prepareStatement(query);
 
 			statement.setString(1, project.getName());
@@ -103,10 +103,10 @@ public class ProjectRepository extends AbstractRepository<Project> {
 		});
 	}
 
-	public List<Project> getProjectByKeyword(String keyword, int index, int limit) {
+	public List<Project> getProjectByKeyword(String keyword, int index, int record_on_page) {
 
 		StringBuilder query = new StringBuilder("select * from projects where name like '%");
-		query.append(keyword).append("%' limit ").append(index).append(",").append(limit);
+		query.append(keyword).append("%' limit ").append(index).append(",").append(record_on_page);
 
 		return excuteQuery(connection -> {
 			PreparedStatement statement = connection.prepareStatement(query.toString());
@@ -146,7 +146,7 @@ public class ProjectRepository extends AbstractRepository<Project> {
 
 		final String query = "SELECT COUNT(*) AS total_record  FROM projects WHERE name LIKE '%" + keyword + "%'";
 
-		return excuteQueryUpdate(connection -> {
+		return excuteQueryInteger(connection -> {
 			PreparedStatement statement = connection.prepareStatement(query);
 			ResultSet resultSet = statement.executeQuery();
 			if(!resultSet.next()) return 0;

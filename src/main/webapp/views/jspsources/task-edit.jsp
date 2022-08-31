@@ -15,10 +15,13 @@
 	<div class="row">
 		<div class="col-md-2 col-12"></div>
 		<div class="col-md-8 col-xs-12">
+			<c:if test="${!empty message}">
+				<div class="alert alert-success" role="alert">${message}</div>
+			</c:if>
 			<div class="white-box">
 
 				<form class="form-horizontal form-material"
-					action="<%=request.getContextPath() + UrlsController.URL_TASK_EDIT %>"
+					action="<%=request.getContextPath() + UrlsController.URL_TASK_EDIT%>"
 					method="post">
 					<div class="form-group">
 						<input type="hidden" id="id" name="id" value="${task.id}">

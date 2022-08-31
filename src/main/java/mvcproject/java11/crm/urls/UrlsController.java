@@ -5,6 +5,8 @@ public class UrlsController {
 	public static final String URL_HOME = "/home";
 	public static final String URL_ALL = "/*";
 
+
+
 	public static final String URL_LOGIN = "/login-crm";
 	public static final String URL_LOGOUT = "/logout-crm";
 	

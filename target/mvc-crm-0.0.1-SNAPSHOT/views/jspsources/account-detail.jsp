@@ -14,11 +14,11 @@
 		<div class="col-md-4 col-xs-12">
 			<div class="white-box">
 				<div class="user-bg">
-					<img width="100%" alt="user" src="plugins/images/large/img1.jpg">
+					<img width="100%" alt="user" src="${pageContext.request.contextPath}/aassets/plugins/images/large/img1.jpg">
 					<div class="overlay-box">
 						<div class="user-content">
 							<a href="javascript:void(0)"><img
-								src="plugins/images/users/genu.jpg" class="thumb-lg img-circle"
+								src="${pageContext.request.contextPath}/aassets/plugins/images/users/genu.jpg" class="thumb-lg img-circle"
 								alt="img"></a>
 							<h4 class="text-white">${account.fullname}</h4>
 							<h5 class="text-white">${account.email}</h5>

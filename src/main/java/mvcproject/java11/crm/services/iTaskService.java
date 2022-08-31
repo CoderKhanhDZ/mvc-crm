@@ -7,9 +7,9 @@ import mvcproject.java11.crm.model.Task;
 
 public interface iTaskService {
 	
-	int updateTask(Task task);
-	int deleteTask(int id);
-	int insertTask(Task task);
+	void updateTask(Task task);
+	void deleteTask(int id);
+	void insertTask(Task task);
 	List<Task> getAllTask();
 	Task getTaskById(int id);
 	List<Task> getTaskByKeyword(String keyword, int index, int limit);
