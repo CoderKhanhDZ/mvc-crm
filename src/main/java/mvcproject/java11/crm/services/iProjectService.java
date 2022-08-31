@@ -8,9 +8,9 @@ import mvcproject.java11.crm.model.Task;
 
 public interface iProjectService {
 	
-	 int updateProject(Project project);
-	 int deleteProject(int id);
-	 int insertProject(Project project) ;
+	void updateProject(Project project);
+	void deleteProject(int id);
+	void insertProject(Project project) ;
 	 List<Project> getAllProject();
 	 Project getProjectById(int id);
 	 List<Project> getProjectByKeyword(String keyword, int index, int limit);

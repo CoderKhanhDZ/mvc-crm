@@ -15,15 +15,20 @@
 	<div class="row">
 		<div class="col-md-2 col-12"></div>
 		<div class="col-md-8 col-xs-12">
+			<c:if test="${!empty message}">
+				<div class="alert alert-success" role="alert">${message}</div>
+			</c:if>
 			<div class="white-box">
-				<form class="form-horizontal form-material" action="<%= request.getContextPath() + UrlsController.URL_TASK_ADD %>" method="post">
+				<form class="form-horizontal form-material"
+					action="<%=request.getContextPath() + UrlsController.URL_TASK_ADD%>"
+					method="post">
 					<div class="form-group">
 						<label class="col-sm-12">Select Project</label>
 						<div class="col-sm-12">
 							<select class="form-control form-control-line" name="project_id">
-							<c:forEach var="item" items="${project}">
-								<option value="${item.id}">${item.name}</option>
-							</c:forEach>
+								<c:forEach var="item" items="${project}">
+									<option value="${item.id}">${item.name}</option>
+								</c:forEach>
 							</select>
 						</div>
 					</div>
@@ -38,9 +43,9 @@
 						<label class="col-sm-12">Select Excutor</label>
 						<div class="col-sm-12">
 							<select class="form-control form-control-line" name="account_id">
-							<c:forEach var="item" items="${account}">
-								<option value="${item.id}">${item.fullname}</option>
-							</c:forEach>
+								<c:forEach var="item" items="${account}">
+									<option value="${item.id}">${item.fullname}</option>
+								</c:forEach>
 							</select>
 						</div>
 					</div>
@@ -60,8 +65,11 @@
 					</div>
 					<div class="form-group">
 						<div class="col-sm-12">
-							<button type="submit" class="btn btn-success" >Create Task</button>
-							<a href="<%=request.getContextPath() + UrlsController.URL_TASK_VIEW %>" class="btn btn-primary">Quay lại</a>
+							<button type="submit" class="btn btn-success">Create
+								Task</button>
+							<a
+								href="<%=request.getContextPath() + UrlsController.URL_TASK_VIEW%>"
+								class="btn btn-primary">Quay lại</a>
 						</div>
 					</div>
 				</form>

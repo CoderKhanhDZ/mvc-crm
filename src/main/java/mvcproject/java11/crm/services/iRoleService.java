@@ -5,9 +5,9 @@ import java.util.List;
 import mvcproject.java11.crm.model.Role;
 
 public interface iRoleService {
-	 int insertRole(Role role) ;
-	 int updateRole(Role role);
-	 int deleteRole(int id);
+	void insertRole(Role role) ;
+	void updateRole(Role role);
+	void deleteRole(int id);
 	 List<Role> getAllRole();
 	 Role getRoleById(int id);
 	 int getTotalRecordRole(String keyword);

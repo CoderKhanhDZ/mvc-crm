@@ -1,0 +1,12 @@
+
+use crm_mvc;
+insert into projects (name, start_date, end_date) values ('Cormier-Borer', '2020-10-31', '2022-01-16');
+insert into projects (name, start_date, end_date) values ('Rowe-Franecki', '2020-09-08', '2022-03-07');
+insert into projects (name, start_date, end_date) values ('Steuber-Block', '2020-08-28', '2021-08-25');
+insert into projects (name, start_date, end_date) values ('Reinger Inc', '2020-07-25', '2021-10-02');
+insert into projects (name, start_date, end_date) values ('Dickens-White', '2020-07-16', '2022-07-09');
+insert into projects (name, start_date, end_date) values ('Sawayn Group', '2020-09-29', '2022-05-09');
+insert into projects (name, start_date, end_date) values ('Mraz LLC', '2020-11-12', '2021-10-08');
+insert into projects (name, start_date, end_date) values ('Spinka Group', '2020-08-08', '2022-03-07');
+insert into projects (name, start_date, end_date) values ('Streich and Sons', '2020-07-01', '2022-06-16');
+insert into projects (name, start_date, end_date) values ('Rodriguez, Ward and Jacobi', '2020-08-25', '2021-11-08');

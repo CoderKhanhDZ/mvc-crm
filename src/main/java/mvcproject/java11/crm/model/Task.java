@@ -15,6 +15,20 @@ public class Task {
 	private String project_name;
 	private String status_name;
 	
+	
+	public Task() {
+		
+	}
+	
+	public Task(String name, LocalDate start_date, LocalDate end_date, int account_id, int project_id) {
+		super();
+		this.name = name;
+		this.start_date = start_date;
+		this.end_date = end_date;
+		this.account_id = account_id;
+		this.project_id = project_id;
+	}
+
 	public int getId() {
 		return id;
 	}

@@ -39,10 +39,9 @@
 
 						<form class="form-inline" method="get">
 							<input type="hidden" name="current_page" id="current_page"
-								value="${current_page}"> <input type="hidden"
+								value="1"> <input type="hidden"
 								name="record_on_page" id="record_on_page"
-								value="${record_on_page}"> <input type="text"
-								value="<%=request.getParameter("keyword_search") == "default" ? request.getParameter("keyword_search") : ""%>"
+								value="10"> <input type="text"
 								name="keyword_search" aria-controls="editable-sample" required>
 							<input type="submit" value="search">
 						</form>
@@ -84,8 +83,8 @@
 									href="<%=request.getContextPath() +  UrlsController.URL_ROLE_VIEW %>?current_page=${current_page - 1 }&record_on_page=${record_on_page}&keyword_search=${keyword_search}">←
 										Prev</a></li>
 							</c:if>
-							<c:forEach var="i" begin="${current_page}"
-								end="${totalPage < 3 ? totalPage : current_page + 2 }">
+							<c:forEach var="i" begin="${current_page - 1 == 0 ? 1: current_page-1}"
+								end="${current_page + 1 >= totalPage ? totalPage : current_page + 1}">
 								<c:choose>
 									<c:when test="${current_page == i}">
 										<li class="page-item active"><a

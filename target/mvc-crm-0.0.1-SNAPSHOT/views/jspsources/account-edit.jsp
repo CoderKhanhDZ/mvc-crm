@@ -15,11 +15,14 @@
 	<div class="row">
 		<div class="col-md-2 col-12"></div>
 		<div class="col-md-8 col-xs-12">
+			<c:if test="${!empty message}">
+				<div class="alert alert-danger" role="alert">${message}</div>
+			</c:if>
 			<div class="white-box">
-			
+
 				<form class="form-horizontal form-material"
-					action="<%=request.getContextPath() + UrlsController.URL_ACCOUNT_EDIT %>"
-					method="post" >
+					action="<%=request.getContextPath() + UrlsController.URL_ACCOUNT_EDIT%>"
+					method="post">
 					<input type="hidden" id="id" name="id" value="${accountrs.id}">
 					<input type="hidden" name="password" id="password"
 						value="${accountrs.password}"
@@ -72,12 +75,15 @@
 					</div>
 					<div class="form-group">
 						<div class="col-sm-12">
-							<button type="submit" class="btn btn-success">Update User</button>
-							<a href="<%=request.getContextPath() + UrlsController.URL_ACCOUNT_VIEW %>" class="btn btn-primary">Quay lại</a>
+							<button type="submit" class="btn btn-success">Update
+								User</button>
+							<a
+								href="<%=request.getContextPath() + UrlsController.URL_ACCOUNT_VIEW%>"
+								class="btn btn-primary">Quay lại</a>
 						</div>
 					</div>
 				</form>
-				
+
 			</div>
 		</div>
 		<div class="col-md-2 col-12"></div>

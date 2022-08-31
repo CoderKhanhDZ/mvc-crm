@@ -11,9 +11,9 @@
 		</a>
 		<div class="top-left-part">
 			<a class="logo" href="#"> <b> <img
-					src="resouces/plugins/images/pixeladmin-logo.png" alt="home" />
+					src="${pageContext.request.contextPath}/aassets/plugins/images/pixeladmin-logo.png" alt="home" />
 			</b> <span class="hidden-xs"> <img
-					src="resouces/plugins/images/pixeladmin-text.png" alt="home" />
+					src="${pageContext.request.contextPath}/aassets/plugins/images/pixeladmin-text.png" alt="home" />
 			</span>
 			</a>
 		</div>
@@ -30,7 +30,7 @@
 			<li>
 				<div class="dropdown">
 					<a class="profile-pic dropdown-toggle" data-toggle="dropdown"
-						href="#"> <img src="resouces/plugins/images/users/varun.jpg"
+						href="#"> <img src="${pageContext.request.contextPath}/aassets/plugins/images/users/varun.jpg"
 						alt="user-img" width="36" class="img-circle" /> <b
 						class="hidden-xs">Cybersoft</b>
 					</a>

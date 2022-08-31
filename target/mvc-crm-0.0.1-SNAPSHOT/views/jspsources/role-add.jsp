@@ -15,8 +15,13 @@
 	<div class="row">
 		<div class="col-md-2 col-12"></div>
 		<div class="col-md-8 col-xs-12">
+			<c:if test="${!empty message}">
+				<div class="alert alert-success" role="alert">${message}</div>
+			</c:if>
 			<div class="white-box">
-				<form class="form-horizontal form-material" action="<%= request.getContextPath() + UrlsController.URL_ROLE_ADD %>" method="post">
+				<form class="form-horizontal form-material"
+					action="<%=request.getContextPath() + UrlsController.URL_ROLE_ADD%>"
+					method="post">
 					<div class="form-group">
 						<label class="col-md-12">Name Role</label>
 						<div class="col-md-12">
@@ -31,11 +36,13 @@
 								class="form-control form-control-line">
 						</div>
 					</div>
-					
+
 					<div class="form-group">
 						<div class="col-sm-12">
-							<button type="submit" class="btn btn-success" >Add Role</button>
-							<a href="<%=request.getContextPath() + UrlsController.URL_ROLE_VIEW %>" class="btn btn-primary">Quay lại</a>
+							<button type="submit" class="btn btn-success">Add Role</button>
+							<a
+								href="<%=request.getContextPath() + UrlsController.URL_ROLE_VIEW%>"
+								class="btn btn-primary">Quay lại</a>
 						</div>
 					</div>
 				</form>

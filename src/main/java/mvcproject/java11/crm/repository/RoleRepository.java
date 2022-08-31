@@ -9,11 +9,11 @@ import mvcproject.java11.crm.model.Role;
 
 public class RoleRepository extends AbstractRepository<Role> {
 
-	public int insertRole(Role role) {
+	public void insertRole(Role role) {
 
 		final String query = "INSERT INTO roles (name, description) VALUES  ( ?,?)";
 
-		return excuteQueryUpdate(connection -> {
+		excuteQueryUpdate(connection -> {
 			PreparedStatement statement = connection.prepareStatement(query);
 			statement.setString(1, role.getName());
 			statement.setString(2, role.getDescription());
@@ -21,11 +21,11 @@ public class RoleRepository extends AbstractRepository<Role> {
 		});
 	}
 
-	public int updateRole(Role role) {
+	public void updateRole(Role role) {
 
 		final String query = "UPDATE roles SET  name=?, description=? WHERE id = ?";
 
-		return excuteQueryUpdate(connection -> {
+		excuteQueryUpdate(connection -> {
 			PreparedStatement statement = connection.prepareStatement(query);
 			statement.setString(1, role.getName());
 			statement.setString(2, role.getDescription());
@@ -35,10 +35,10 @@ public class RoleRepository extends AbstractRepository<Role> {
 		});
 	}
 
-	public int deleteRole(int id) {
+	public void deleteRole(int id) {
 		final String query = "DELETE FROM roles WHERE id=?";
 
-		return excuteQueryUpdate(connection -> {
+		excuteQueryUpdate(connection -> {
 			PreparedStatement statement = connection.prepareStatement(query);
 			statement.setInt(1, id);
 
@@ -97,14 +97,14 @@ public class RoleRepository extends AbstractRepository<Role> {
 
 		final String query = "SELECT COUNT(*) AS total_record  FROM roles WHERE name LIKE '%" + keyword + "%'";
 
-		return excuteQueryUpdate(connnection -> {
+		return excuteQueryInteger(connnection -> {
 			PreparedStatement statement = connnection.prepareStatement(query);
 			ResultSet resultSet = statement.executeQuery();
-			if(!resultSet.next()) return 0;
+			if (!resultSet.next())
+				return 0;
 			return resultSet.getInt("total_record");
 		});
 	}
-	
 
 	public List<Role> getRoleByKeyWord(String keyword, int index, int limit) {
 		StringBuilder query = new StringBuilder("SELECT * FROM roles WHERE name LIKE '%");

@@ -14,184 +14,162 @@ import mvcproject.java11.crm.services.CrmServices;
 import mvcproject.java11.crm.urls.UrlsController;
 import mvcproject.java11.crm.urls.UrlsJSP;
 
-@WebServlet(name = "role-controller", urlPatterns = { UrlsController.URL_ROLE_VIEW,
-		UrlsController.URL_ROLE_EDIT, 
-		UrlsController.URL_ROLE_ADD, 
-		UrlsController.URL_ROLE_DELETE})
+@WebServlet(name = "role-controller", urlPatterns = {UrlsController.URL_ROLE_VIEW, UrlsController.URL_ROLE_EDIT,
+        UrlsController.URL_ROLE_ADD, UrlsController.URL_ROLE_DELETE})
 
 public class RoleController extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
-	private static CrmServices crmServices;
+    private static final long serialVersionUID = 1L;
+    private static CrmServices crmServices;
 
-	@Override
-	public void init() throws ServletException {
-		super.init();
-		crmServices = CrmServices.getINSTANCE();
-	}
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        crmServices = CrmServices.getINSTANCE();
+    }
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		switch (req.getServletPath()) {
-		case UrlsController.URL_ROLE_VIEW:
-			processViews(req, resp);
-			break;
-		case UrlsController.URL_ROLE_ADD:
-			getAdd(req, resp);
-			break;
-		case UrlsController.URL_ROLE_EDIT:
-			getEdit(req, resp);
-			break;
-		case UrlsController.URL_ROLE_DELETE:
-			getDelete(req, resp);
-			break;
-		}
-	}
+        switch (req.getServletPath()) {
+            case UrlsController.URL_ROLE_VIEW:
+                getViews(req, resp);
+                break;
+            case UrlsController.URL_ROLE_ADD:
+                getAdd(req, resp);
+                break;
+            case UrlsController.URL_ROLE_EDIT:
+                getEdit(req, resp);
+                break;
+            case UrlsController.URL_ROLE_DELETE:
+                getDelete(req, resp);
+                break;
 
-	private void getAdd(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher(UrlsJSP.URL_ROLE_ADD).forward(req, resp);
-	}
+        }
+    }
 
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		switch (req.getServletPath()) {
-		case UrlsController.URL_ROLE_EDIT:
-			doEdit(req, resp);
-			break;
-		case UrlsController.URL_ROLE_ADD:
-			doAdd(req, resp);
-			break;
-		}
+        switch (req.getServletPath()) {
+            case UrlsController.URL_ROLE_EDIT:
+                postEdit(req, resp);
+                break;
+            case UrlsController.URL_ROLE_ADD:
+                postAdd(req, resp);
+                break;
 
-	}
+        }
 
-	private void processViews(HttpServletRequest req, HttpServletResponse resp) {
+    }
 
-		try {
-			// System.out.println("keyword_search: " +
-			// req.getServletContext().getInitParameter("keyword_search"));
-			// System.out.println("current_page: " +
-			// req.getServletContext().getInitParameter("current_page"));
-			// System.out.println("record_on_page: " +
-			// req.getServletContext().getInitParameter("record_on_page"));
+    private void getAdd(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher(UrlsJSP.URL_ROLE_ADD).forward(req, resp);
+    }
 
-			// get cac paremeter tren neu khac null thi su dung
-			// nguoc lai = null thi lay cac context parameter
+    private void getViews(HttpServletRequest req, HttpServletResponse resp) {
 
-			String keyword_search = req.getParameter("keyword_search");
-			String get_current_page = req.getParameter("current_page");
-			String get_record_on_page = req.getParameter("record_on_page");
+        try {
 
-			System.out.println("keyword_search: "+keyword_search);
-			System.out.println("get_current_page: "+ get_current_page);
-			System.out.println("get_record_on_page: "+ get_record_on_page);
-			
-			if (keyword_search == null  || keyword_search.isEmpty()) {
-				keyword_search = req.getServletContext().getInitParameter("keyword_search");
-			}
-			req.setAttribute("keyword_search", keyword_search);
+            String keyword_search = req.getParameter("keyword_search");
+            String _current_page = req.getParameter("current_page");
+            String _record_on_page = req.getParameter("record_on_page");
 
-			if (get_current_page == null) {
-				get_current_page = req.getServletContext().getInitParameter("current_page");
-			}
+            if (keyword_search == null || keyword_search.isEmpty()) {
+                keyword_search = req.getServletContext().getInitParameter("keyword_search");
+            }
 
-			if (get_record_on_page == null) {
-				get_record_on_page = req.getServletContext().getInitParameter("record_on_page");
-			}
+            if (_current_page == null) {
+                _current_page = req.getServletContext().getInitParameter("current_page");
+            }
 
-			int current_page = Integer.parseInt(get_current_page);
-			int record_on_page = Integer.parseInt(get_record_on_page);
-			if(keyword_search.equals("default")) {
-				keyword_search = "";
-			}
-			int totalRecord = crmServices.getTotalRecordRole(keyword_search);
-			int totalPage = (int) Math
-					.ceil((float) totalRecord / (float) record_on_page);
-			int index = (current_page - 1) * record_on_page;
+            if (_record_on_page == null) {
+                _record_on_page = req.getServletContext().getInitParameter("record_on_page");
+            }
 
-			System.out.println("current_page: " + current_page);
-			System.out.println("record_on_page: " + record_on_page);
-			System.out.println("totalPage: " + totalPage);
-			System.out.println("totalRecord: " + totalRecord);
-			System.out.println("index: " + index);
-			System.out.println();
+            int current_page = Integer.parseInt(_current_page);
+            int record_on_page = Integer.parseInt(_record_on_page);
+            int totalRecord = crmServices.getTotalRecordRole(keyword_search);
+            int totalPage = (int) Math.ceil((float) totalRecord / (float) record_on_page);
 
-			List<Role> roles = crmServices.getRoleByKeyword(keyword_search, index, record_on_page);
-			// List<Account> accounts = crmServices.getAllAccount();
-			
-			req.setAttribute("record_on_page", record_on_page);
-			req.setAttribute("totalRecord", totalRecord);
-			req.setAttribute("current_page", current_page);
-			req.setAttribute("totalPage", totalPage);
-			req.setAttribute("viewRoles", roles);
-			
-			req.getRequestDispatcher(UrlsJSP.URL_ROLE_VIEW).forward(req, resp);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+            List<Role> roles = crmServices.getRoleByKeyword(keyword_search, current_page, record_on_page);
 
-	private void getDelete(HttpServletRequest req, HttpServletResponse resp) {
-		try {
-			int id = Integer.valueOf((String) req.getParameter("id"));
-			if (crmServices.deleteRole(id) > 0) {
-				req.setAttribute("message", "success!");
-			}
-			resp.sendRedirect(req.getContextPath() + UrlsController.URL_ROLE_VIEW);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+            req.setAttribute("keyword_search", keyword_search);
+            req.setAttribute("record_on_page", record_on_page);
+            req.setAttribute("current_page", current_page);
+            req.setAttribute("totalPage", totalPage);
+            req.setAttribute("viewRoles", roles);
 
-	private void getEdit(HttpServletRequest req, HttpServletResponse resp) {
-		try {
-			String role_id = req.getParameter("id");
-			System.out.println("getEdit role_id: " + role_id);
+            req.getRequestDispatcher(UrlsJSP.URL_ROLE_VIEW).forward(req, resp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-			Role role = crmServices.getRoleById(Integer.parseInt(role_id));
+    private void getDelete(HttpServletRequest req, HttpServletResponse resp) {
+        try {
+            int id = Integer.valueOf(req.getParameter("id"));
 
-			req.setAttribute("roles", role);
+            crmServices.deleteRole(id);
+            resp.sendRedirect(req.getContextPath() + UrlsController.URL_ROLE_VIEW);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-			req.getRequestDispatcher(UrlsJSP.URL_ROLE_EDIT).include(req, resp);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    private void getEdit(HttpServletRequest req, HttpServletResponse resp) {
+        try {
+            String role_id = req.getParameter("id");
+            System.out.println("getEdit role_id: " + role_id);
 
-	private void doAdd(HttpServletRequest req, HttpServletResponse resp) {
-		Role role = new Role();
-		try {
-			role.setName(req.getParameter("name"));
-			role.setDescription(req.getParameter("description"));
-			
-			if (crmServices.insertRole(role) > 0) {
-				resp.sendRedirect(req.getContextPath() + UrlsController.URL_ROLE_VIEW);
-			} else {
-				req.setAttribute("message", "tao role that bai");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+            Role role = crmServices.getRoleById(Integer.parseInt(role_id));
 
-	private void doEdit(HttpServletRequest req, HttpServletResponse resp) {
-		try {
-			String role_id = req.getParameter("id");
-			System.out.println(role_id);
-			if (role_id != null && !role_id.isEmpty()) {
-				Role role = new Role();
-				role.setId(Integer.parseInt(role_id));
-				role.setName(req.getParameter("name"));
-				role.setDescription(req.getParameter("description"));
-				
-				crmServices.updateRole(role);
-			}
-			resp.sendRedirect(req.getContextPath() + UrlsController.URL_ROLE_VIEW);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+            req.setAttribute("roles", role);
+
+            req.getRequestDispatcher(UrlsJSP.URL_ROLE_EDIT).include(req, resp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void postAdd(HttpServletRequest req, HttpServletResponse resp) {
+        Role role = new Role();
+        try {
+            role.setName(req.getParameter("name"));
+            role.setDescription(req.getParameter("description"));
+
+            crmServices.insertRole(role);
+            req.setAttribute("message", "tao role thanh cong");
+
+            this.doGet(req, resp);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void postEdit(HttpServletRequest req, HttpServletResponse resp) {
+        try {
+            String role_id = req.getParameter("id");
+            Role role = new Role();
+            role.setName(req.getParameter("name"));
+            role.setDescription(req.getParameter("description"));
+
+            if (role_id != null && !role_id.isEmpty()) {
+
+                role.setId(Integer.parseInt(role_id));
+                crmServices.updateRole(role);
+                req.setAttribute("message", "edit role thanh cong");
+
+            } else {
+                req.setAttribute("message", "edit role that bai");
+            }
+
+            this.doGet(req, resp);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

@@ -10,11 +10,26 @@ import mvcproject.java11.crm.services.iAccountService;
 
 public class AccountRepository extends AbstractRepository<Account>{
 
-	public int insertAccount(Account account) {
+	public boolean existedByEmail(String email) {
+		
+        final String query = "SELECT email FROM accounts where email = ? ";
+        return existedBy(connection -> {
+            
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, email);
+
+            ResultSet results = statement.executeQuery();
+
+            return results.next();
+        });
+    }
+	
+	public void insertAccount(Account account) {
 
 		final String query = "INSERT INTO accounts (email, password, fullname, phone, address, avatar, role_id) VALUES  ( ?,?,?,?,?,?,?)";
 
-		return excuteQueryUpdate(connection -> {
+		 excuteQueryUpdate(connection -> {
+			
 			PreparedStatement statement = connection.prepareStatement(query);
 			statement.setString(1, account.getEmail());
 			statement.setString(2, account.getPassword());
@@ -23,15 +38,16 @@ public class AccountRepository extends AbstractRepository<Account>{
 			statement.setString(5, account.getAddress());
 			statement.setString(6, account.getAvatar());
 			statement.setInt(7, account.getRole_id());
-			return statement.executeUpdate();
+			
+			return statement.executeUpdate() ;
 		});
 	}
 
-	public int updateAccount(Account account) {
+	public void updateAccount(Account account) {
 
 		final String query = "UPDATE accounts SET  email=?, fullname=?, phone=?, address=?, avatar=?, role_id=? WHERE id = ?";
 
-		return excuteQueryUpdate(connection -> {
+		 excuteQueryUpdate(connection -> {
 			PreparedStatement statement = connection.prepareStatement(query);
 			statement.setString(1, account.getEmail());
 			statement.setString(2, account.getFullname());
@@ -45,10 +61,10 @@ public class AccountRepository extends AbstractRepository<Account>{
 		});
 	}
 
-	public int deleteAccount(int id) {
+	public void deleteAccount(int id) {
 		final String query = "DELETE FROM accounts WHERE id=?";
 
-		return excuteQueryUpdate(connection -> {
+		 excuteQueryUpdate(connection -> {
 			PreparedStatement statement = connection.prepareStatement(query);
 			statement.setInt(1, id);
 
@@ -114,7 +130,7 @@ public class AccountRepository extends AbstractRepository<Account>{
 
 		final String query = "SELECT COUNT(*) AS total_record  FROM accounts WHERE fullname LIKE '%" + keyword + "%'";
 
-		return excuteQueryUpdate(connnection -> {
+		return excuteQueryInteger(connnection -> {
 			PreparedStatement statement = connnection.prepareStatement(query);
 			ResultSet resultSet = statement.executeQuery();
 
@@ -124,9 +140,9 @@ public class AccountRepository extends AbstractRepository<Account>{
 		});
 	}
 
-	public List<Account> getAccountByKeyword(String keyword, int index, int limit) {
+	public List<Account> getAccountByKeyword(String keyword, int index, int record_on_page) {
 		StringBuilder query = new StringBuilder("SELECT * FROM accounts WHERE fullname LIKE '%");
-		query.append(keyword).append("%' LIMIT ").append(index).append(",").append(limit);
+		query.append(keyword).append("%' LIMIT ").append(index).append(",").append(record_on_page);
 
 		return excuteQuery(connection -> {
 			PreparedStatement statement = connection.prepareStatement(query.toString());

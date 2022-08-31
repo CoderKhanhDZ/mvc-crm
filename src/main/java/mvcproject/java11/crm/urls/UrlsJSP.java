@@ -4,8 +4,9 @@ public class UrlsJSP {
 
 	public static final String URL_HOME = "/views/jspsources/index.jsp";
 	
-	public static final String URL_LOGIN = "/decorators/login-layout.jsp";
-	
+	public static final String URL_LOGIN = "/views/decorators/login-layout.jsp";
+	public static final String URL_ERROR = "/views/decorators/error-page.jsp";
+
     public static final String URL_ACCOUNT_VIEW = "/views/jspsources/account-view.jsp";
     public static final String URL_ACCOUNT_ADD = "/views/jspsources/account-add.jsp";
     public static final String URL_ACCOUNT_EDIT = "/views/jspsources/account-edit.jsp";
