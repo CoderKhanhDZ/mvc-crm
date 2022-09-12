@@ -25,7 +25,7 @@
 					<div class="form-group">
 						<label class="col-sm-12">Select Project</label>
 						<div class="col-sm-12">
-							<select class="form-control form-control-line" name="project_id">
+							<select class="form-control form-control-line" name="project_id" >
 								<c:forEach var="item" items="${project}">
 									<option value="${item.id}">${item.name}</option>
 								</c:forEach>
@@ -35,14 +35,14 @@
 					<div class="form-group">
 						<label for="example-email" class="col-md-12">Name Task</label>
 						<div class="col-md-12">
-							<input type="text" placeholder="working thing ?"
+							<input type="text" placeholder="working thing ?" required
 								class="form-control form-control-line" name="name">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-12">Select Excutor</label>
 						<div class="col-sm-12">
-							<select class="form-control form-control-line" name="account_id">
+							<select class="form-control form-control-line" name="account_id" >
 								<c:forEach var="item" items="${account}">
 									<option value="${item.id}">${item.fullname}</option>
 								</c:forEach>
@@ -52,14 +52,14 @@
 					<div class="form-group">
 						<label class="col-md-12">Start Date</label>
 						<div class="col-md-12">
-							<input type="date" placeholder="YYYY-MM-DD" name="start_date"
+							<input type="date" placeholder="YYYY-MM-DD" name="start_date" required
 								class="form-control form-control-line">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-12">End Date</label>
 						<div class="col-md-12">
-							<input type="date" placeholder="YYYY-MM-DD" name="end_date"
+							<input type="date" placeholder="YYYY-MM-DD" name="end_date" required
 								class="form-control form-control-line">
 						</div>
 					</div>

@@ -62,7 +62,7 @@
 					<div class="form-group">
 						<label class="col-sm-12">Select Role</label>
 						<div class="col-sm-12">
-							<select class="form-control form-control-line" name="role_id">
+							<select class="form-control form-control-line" name="role_id"  required>
 								<c:forEach var="item" items="${role}">
 									<option value="${item.id}">${item.name}</option>
 								</c:forEach>

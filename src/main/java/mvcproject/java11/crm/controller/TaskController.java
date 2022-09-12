@@ -1,32 +1,31 @@
 package mvcproject.java11.crm.controller;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.List;
+import mvcproject.java11.crm.model.Task;
+import mvcproject.java11.crm.services.AccountServiceImp;
+import mvcproject.java11.crm.services.ProjectServiceImp;
+import mvcproject.java11.crm.services.StatusServiceImp;
+import mvcproject.java11.crm.services.TaskServiceImp;
+import mvcproject.java11.crm.urls.UrlsController;
+import mvcproject.java11.crm.urls.UrlsJSP;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import mvcproject.java11.crm.model.Account;
-import mvcproject.java11.crm.model.Task;
-import mvcproject.java11.crm.services.CrmServices;
-import mvcproject.java11.crm.urls.UrlsController;
-import mvcproject.java11.crm.urls.UrlsJSP;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.List;
 
 @WebServlet(name = "task-controller", urlPatterns = {UrlsController.URL_TASK_VIEW, UrlsController.URL_TASK_EDIT,
         UrlsController.URL_TASK_ADD, UrlsController.URL_TASK_DELETE})
 public class TaskController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private static CrmServices crmServices;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        crmServices = CrmServices.getINSTANCE();
     }
 
     @Override
@@ -68,8 +67,8 @@ public class TaskController extends HttpServlet {
     }
 
     private void getAdd(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("project", crmServices.getAllProject());
-        req.setAttribute("account", crmServices.getAllAccount());
+        req.setAttribute("project", ProjectServiceImp.getInstance().getAllProject());
+        req.setAttribute("account", AccountServiceImp.getInstance().getAllAccount());
         req.getRequestDispatcher(UrlsJSP.URL_TASK_ADD).forward(req, resp);
     }
 
@@ -96,10 +95,10 @@ public class TaskController extends HttpServlet {
 
             int current_page = Integer.parseInt(_current_page);
             int record_on_page = Integer.parseInt(_record_on_page);
-            int totalRecord = crmServices.getTotalRecordTask(keyword_search);
+            int totalRecord = TaskServiceImp.getInstance().getTotalRecordTask(keyword_search);
             int totalPage = (int) Math.ceil((float) totalRecord / (float) record_on_page);
 
-            List<Task> tasks = crmServices.getTaskByKeyword(keyword_search, current_page, record_on_page);
+            List<Task> tasks = TaskServiceImp.getInstance().getTaskByKeyword(keyword_search, current_page, record_on_page);
 
             req.setAttribute("record_on_page", record_on_page);
             req.setAttribute("totalRecord", totalRecord);
@@ -117,7 +116,7 @@ public class TaskController extends HttpServlet {
         try {
             int id = Integer.valueOf(req.getParameter("id"));
 
-            crmServices.deleteTask(id);
+            TaskServiceImp.getInstance().deleteTask(id);
             resp.sendRedirect(req.getContextPath() + UrlsController.URL_TASK_VIEW);
         } catch (Exception e) {
             e.printStackTrace();
@@ -129,11 +128,11 @@ public class TaskController extends HttpServlet {
             String task_id = req.getParameter("id");
             System.out.println("getEdit task_id: " + task_id);
 
-            Task task = crmServices.getTaskById(Integer.parseInt(task_id));
+            Task task = TaskServiceImp.getInstance().getTaskById(Integer.parseInt(task_id));
 
-            req.setAttribute("project", crmServices.getAllProject());
-            req.setAttribute("account", crmServices.getAllAccount());
-            req.setAttribute("status", crmServices.getAllStatus());
+            req.setAttribute("project", ProjectServiceImp.getInstance().getAllProject());
+            req.setAttribute("account", AccountServiceImp.getInstance().getAllAccount());
+            req.setAttribute("status", StatusServiceImp.getInstance().getAllStatus());
             req.setAttribute("task", task);
 
             req.getRequestDispatcher(UrlsJSP.URL_TASK_EDIT).forward(req, resp);
@@ -147,7 +146,7 @@ public class TaskController extends HttpServlet {
             Task task = getTaskByParemeter(req);
             task.setStatus_id(3); // default khi tao task (chua hoan thanh)
 
-            crmServices.insertTask(task);
+            TaskServiceImp.getInstance().insertTask(task);
             req.setAttribute("message", "tao task thanh cong");
 
             this.doGet(req, resp);
@@ -166,7 +165,7 @@ public class TaskController extends HttpServlet {
 
             if (task_id != null && !task_id.isEmpty()) {
                 task.setId(Integer.parseInt(task_id));
-                crmServices.updateTask(task);
+                TaskServiceImp.getInstance().updateTask(task);
             }
             resp.sendRedirect(req.getContextPath() + UrlsController.URL_TASK_VIEW);
         } catch (Exception e) {

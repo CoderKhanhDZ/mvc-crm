@@ -1,10 +1,10 @@
 package mvcproject.java11.crm.exception;
 
-public class DatabaseNotFoundException extends RuntimeException{
+public class DatabaseNotFoundException extends RuntimeException {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public DatabaseNotFoundException(String message) {
-		super(message);
-	}
+    public DatabaseNotFoundException(String message) {
+        super(message);
+    }
 }

@@ -1,0 +1,31 @@
+
+e
+java:S1192b"ODefine a constant instead of duplicating this literal "keyword_search" 3 times.(‹³ö™
+j
+java:S1192a"ODefine a constant instead of duplicating this literal "record_on_page" 3 times.(­Â¡Úÿÿÿÿÿ
+_
+java:S1192‹"HDefine a constant instead of duplicating this literal "message" 5 times.(„Ğö¥
+c
+java:S1192`"MDefine a constant instead of duplicating this literal "current_page" 3 times.(ŞŒğÁ
+e	java:S117K"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(é„£K
+f	java:S117`"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŞŒğÁ
+k	java:S117a"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(­Â¡Úÿÿÿÿÿ
+f	java:S117b"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹³ö™
+f	java:S117r"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(èĞÖ’
+f	java:S117s"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(­ê›Æ
+l	java:S117•"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÜÍ…øÿÿÿÿ
+l	java:S117¹"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÜÍ…øÿÿÿÿ
+g	java:S117Ô"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§‰ÜÂ
+a
+java:S1301="KReplace this "switch" statement by "if" statements to increase readability.(İğôï
+L
+java:S2696"6Make the enclosing method "static" or remove this set.(Ş—›â
+7	java:S131"""Add a default case to this switch.(İğôï
+‚
+java:S1989("gHandle the following exceptions that could be thrown by "getViewDetail": ServletException, IOException.(÷¯ú¢şÿÿÿÿ
+v
+java:S1989,"`Handle the following exceptions that could be thrown by "getAdd": ServletException, IOException.(Õ§¾
+7	java:S131=""Add a default case to this switch.(İğôï
+U
+java:S2130ˆ"9Use "Integer.parseInt" for this string-to-int conversion.(ƒµÇùÿÿÿÿ
+O	java:S106–"9Replace this use of System.out or System.err by a logger.(½ßëó

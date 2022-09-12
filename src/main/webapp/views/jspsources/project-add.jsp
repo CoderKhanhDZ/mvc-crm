@@ -26,20 +26,20 @@
 						<label class="col-md-12">Name Project</label>
 						<div class="col-md-12">
 							<input type="text" placeholder="project name"
-								class="form-control form-control-line" name="name">
+								class="form-control form-control-line" name="name" required>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-12">Start Date</label>
 						<div class="col-md-12">
-							<input type="date" placeholder="YYYY-MM-DD" name="start_date"
+							<input type="date" placeholder="YYYY-MM-DD" name="start_date" required
 								class="form-control form-control-line">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-12">End Date</label>
 						<div class="col-md-12">
-							<input type="date" placeholder="YYYY-MM-DD" name="end_date"
+							<input type="date" placeholder="YYYY-MM-DD" name="end_date" required
 								class="form-control form-control-line">
 						</div>
 					</div>

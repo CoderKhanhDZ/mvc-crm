@@ -1,15 +1,14 @@
 package mvcproject.java11.crm.controller;
 
-import java.io.IOException;
+import mvcproject.java11.crm.urls.UrlsController;
+import mvcproject.java11.crm.urls.UrlsJSP;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import mvcproject.java11.crm.urls.UrlsController;
-import mvcproject.java11.crm.urls.UrlsJSP;
+import java.io.IOException;
 
 @WebServlet(name = "home", urlPatterns = UrlsController.URL_HOME)
 public class HomeController extends HttpServlet {
