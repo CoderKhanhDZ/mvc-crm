@@ -1,22 +1,26 @@
 package mvcproject.java11.crm.controller;
 
-import java.io.IOException;
+import mvcproject.java11.crm.model.Account;
+import mvcproject.java11.crm.services.AccountServiceImp;
+import mvcproject.java11.crm.urls.UrlsController;
+import mvcproject.java11.crm.urls.UrlsJSP;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import mvcproject.java11.crm.model.Account;
-import mvcproject.java11.crm.services.CrmServices;
-import mvcproject.java11.crm.urls.UrlsController;
-import mvcproject.java11.crm.urls.UrlsJSP;
+import java.io.IOException;
 
 @WebServlet(name = "auth-controller", urlPatterns = {UrlsController.URL_LOGIN, UrlsController.URL_LOGOUT})
 public class AuthController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,7 +43,7 @@ public class AuthController extends HttpServlet {
 
         if (UrlsController.URL_LOGIN.equals(req.getServletPath())) {
             processLogin(req, resp);
-            }
+        }
     }
 
     private void processLogin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -52,7 +56,7 @@ public class AuthController extends HttpServlet {
             System.out.println(get_email);
             System.out.println(get_password);
 
-            Account account = CrmServices.getINSTANCE().checkLogin(get_email, get_password);
+            Account account = AccountServiceImp.getInstance().checkLogin(get_email, get_password);
 
             System.out.println(account);
             if (account == null) {

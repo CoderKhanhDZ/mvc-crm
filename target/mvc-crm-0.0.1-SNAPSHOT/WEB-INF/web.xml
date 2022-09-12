@@ -32,5 +32,9 @@
 		<param-name>record_on_page</param-name>
 		<param-value>10</param-value>
 	</context-param>
-	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/views/decorators/error-page.jsp</location>
+	</error-page>
+
 </web-app>

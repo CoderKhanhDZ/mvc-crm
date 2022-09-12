@@ -1,18 +1,17 @@
 package mvcproject.java11.crm.controller;
 
-import java.io.IOException;
-import java.util.List;
+import mvcproject.java11.crm.model.Role;
+import mvcproject.java11.crm.services.RoleServiceImp;
+import mvcproject.java11.crm.urls.UrlsController;
+import mvcproject.java11.crm.urls.UrlsJSP;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import mvcproject.java11.crm.model.Role;
-import mvcproject.java11.crm.services.CrmServices;
-import mvcproject.java11.crm.urls.UrlsController;
-import mvcproject.java11.crm.urls.UrlsJSP;
+import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "role-controller", urlPatterns = {UrlsController.URL_ROLE_VIEW, UrlsController.URL_ROLE_EDIT,
         UrlsController.URL_ROLE_ADD, UrlsController.URL_ROLE_DELETE})
@@ -20,12 +19,10 @@ import mvcproject.java11.crm.urls.UrlsJSP;
 public class RoleController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private static CrmServices crmServices;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        crmServices = CrmServices.getINSTANCE();
     }
 
     @Override
@@ -89,10 +86,10 @@ public class RoleController extends HttpServlet {
 
             int current_page = Integer.parseInt(_current_page);
             int record_on_page = Integer.parseInt(_record_on_page);
-            int totalRecord = crmServices.getTotalRecordRole(keyword_search);
+            int totalRecord = RoleServiceImp.getInstance().getTotalRecordRole(keyword_search);
             int totalPage = (int) Math.ceil((float) totalRecord / (float) record_on_page);
 
-            List<Role> roles = crmServices.getRoleByKeyword(keyword_search, current_page, record_on_page);
+            List<Role> roles = RoleServiceImp.getInstance().getRoleByKeyword(keyword_search, current_page, record_on_page);
 
             req.setAttribute("keyword_search", keyword_search);
             req.setAttribute("record_on_page", record_on_page);
@@ -110,7 +107,7 @@ public class RoleController extends HttpServlet {
         try {
             int id = Integer.valueOf(req.getParameter("id"));
 
-            crmServices.deleteRole(id);
+            RoleServiceImp.getInstance().deleteRole(id);
             resp.sendRedirect(req.getContextPath() + UrlsController.URL_ROLE_VIEW);
         } catch (Exception e) {
             e.printStackTrace();
@@ -122,7 +119,7 @@ public class RoleController extends HttpServlet {
             String role_id = req.getParameter("id");
             System.out.println("getEdit role_id: " + role_id);
 
-            Role role = crmServices.getRoleById(Integer.parseInt(role_id));
+            Role role = RoleServiceImp.getInstance().getRoleById(Integer.parseInt(role_id));
 
             req.setAttribute("roles", role);
 
@@ -138,7 +135,7 @@ public class RoleController extends HttpServlet {
             role.setName(req.getParameter("name"));
             role.setDescription(req.getParameter("description"));
 
-            crmServices.insertRole(role);
+            RoleServiceImp.getInstance().insertRole(role);
             req.setAttribute("message", "tao role thanh cong");
 
             this.doGet(req, resp);
@@ -158,7 +155,7 @@ public class RoleController extends HttpServlet {
             if (role_id != null && !role_id.isEmpty()) {
 
                 role.setId(Integer.parseInt(role_id));
-                crmServices.updateRole(role);
+                RoleServiceImp.getInstance().updateRole(role);
                 req.setAttribute("message", "edit role thanh cong");
 
             } else {

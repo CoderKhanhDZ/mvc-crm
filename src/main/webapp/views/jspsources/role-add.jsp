@@ -25,14 +25,14 @@
 					<div class="form-group">
 						<label class="col-md-12">Name Role</label>
 						<div class="col-md-12">
-							<input type="text" placeholder="role name"
+							<input type="text" placeholder="role name" required
 								class="form-control form-control-line" name="name">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-12">Description</label>
 						<div class="col-md-12">
-							<input type="text" placeholder="description" name="description"
+							<input type="text" placeholder="description" name="description" required
 								class="form-control form-control-line">
 						</div>
 					</div>

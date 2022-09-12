@@ -1,0 +1,17 @@
+
+k	java:S1171"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ËÔ£úÿÿÿÿ
+f	java:S1172"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ª»¨¨
+a
+java:S1301"KReplace this "switch" statement by "if" statements to increase readability.(Ýðôï
+7	java:S131""Add a default case to this switch.(Ýðôï
+w
+java:S1989"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(˜Ñ¶Û
+i
+java:S1989"SHandle the following exception that could be thrown by "sendRedirect": IOException.(ðÆíŸ
+
+java:S1989)"fHandle the following exceptions that could be thrown by "processLogin": ServletException, IOException.(‚ã‡Çüÿÿÿÿ
+S	java:S1064"9Replace this use of System.out or System.err by a logger.(ºáÐËþÿÿÿÿ
+N	java:S1065"9Replace this use of System.out or System.err by a logger.(³ÃŠ“
+S	java:S1069"9Replace this use of System.out or System.err by a logger.(Âé’ùÿÿÿÿ
+X
+java:S2441>"=Make "Account" serializable or don't store it in the session.(¼ž—˜úÿÿÿÿ

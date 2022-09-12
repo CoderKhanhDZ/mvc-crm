@@ -43,7 +43,7 @@
 								name="record_on_page" id="record_on_page"
 								value="10"> <input type="text"
 								name="keyword_search" aria-controls="editable-sample" required>
-							<input type="submit" value="search">
+
 						</form>
 
 					</div>

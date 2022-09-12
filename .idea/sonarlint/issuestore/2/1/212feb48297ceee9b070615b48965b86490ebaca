@@ -1,0 +1,34 @@
+
+e
+java:S1192c"ODefine a constant instead of duplicating this literal "keyword_search" 3 times.(‹³ö™
+j
+java:S1192e"ODefine a constant instead of duplicating this literal "record_on_page" 3 times.(Àï–¨øÿÿÿÿ
+d
+java:S1192¨"HDefine a constant instead of duplicating this literal "message" 3 times.(¢ÅÍãşÿÿÿÿ
+h
+java:S1192d"MDefine a constant instead of duplicating this literal "current_page" 3 times.(áÊºıÿÿÿÿ
+f	java:S117P"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ØÈ«Ş
+f	java:S117c"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹³ö™
+k	java:S117d"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(áÊºıÿÿÿÿ
+k	java:S117e"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Àï–¨øÿÿÿÿ
+f	java:S117s"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÁÉŒ¡
+f	java:S117t"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€¬¿‚
+g	java:S117’"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ê÷İ
+g	java:S117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ê÷İ
+a
+java:S1301A"KReplace this "switch" statement by "if" statements to increase readability.(İğôï
+L
+java:S2696 "6Make the enclosing method "static" or remove this set.(Ş—›â
+7	java:S131&""Add a default case to this switch.(İğôï
+‚
+java:S1989,"gHandle the following exceptions that could be thrown by "getViewDetail": ServletException, IOException.(÷¯ú¢şÿÿÿÿ
+v
+java:S19890"`Handle the following exceptions that could be thrown by "getAdd": ServletException, IOException.(Õ§¾
+7	java:S131A""Add a default case to this switch.(İğôï
+U
+java:S2130ˆ"9Use "Integer.parseInt" for this string-to-int conversion.(ƒµÇùÿÿÿÿ
+T	java:S106“"9Replace this use of System.out or System.err by a logger.(¨÷™ùÿÿÿÿ
+@
+java:S1128"*Remove this unused import 'java.sql.Date'.(ÙÀ½Ê
+M
+java:S1128"7Remove this unused import 'java.text.SimpleDateFormat'.(ú¡ÙÛ

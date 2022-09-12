@@ -1,21 +1,19 @@
 package mvcproject.java11.crm.controller;
 
-import java.io.IOException;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.List;
+import mvcproject.java11.crm.model.Project;
+import mvcproject.java11.crm.services.ProjectServiceImp;
+import mvcproject.java11.crm.services.TaskServiceImp;
+import mvcproject.java11.crm.urls.UrlsController;
+import mvcproject.java11.crm.urls.UrlsJSP;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import mvcproject.java11.crm.model.Project;
-import mvcproject.java11.crm.services.CrmServices;
-import mvcproject.java11.crm.urls.UrlsController;
-import mvcproject.java11.crm.urls.UrlsJSP;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.List;
 
 @WebServlet(name = "project-controller", urlPatterns = {UrlsController.URL_PROJECT_VIEW,
         UrlsController.URL_PROJECT_EDIT, UrlsController.URL_PROJECT_DELETE, UrlsController.URL_PROJECT_ADD,
@@ -24,12 +22,10 @@ import mvcproject.java11.crm.urls.UrlsJSP;
 public class ProjectController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private static CrmServices crmServices;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        crmServices = CrmServices.getINSTANCE();
     }
 
     @Override
@@ -80,8 +76,8 @@ public class ProjectController extends HttpServlet {
         String _projectId = req.getParameter("id");
         int projectId = Integer.parseInt(_projectId);
 
-        req.setAttribute("project", crmServices.getProjectById(projectId));
-        req.setAttribute("taskByProjectId", crmServices.getTaskByProjectId(projectId));
+        req.setAttribute("project", ProjectServiceImp.getInstance().getProjectById(projectId));
+        req.setAttribute("taskByProjectId", TaskServiceImp.getInstance().getTaskByProjectId(projectId));
 
         req.getRequestDispatcher(UrlsJSP.URL_PROJECT_DETAIL).forward(req, resp);
     }
@@ -114,10 +110,10 @@ public class ProjectController extends HttpServlet {
 
             int current_page = Integer.parseInt(get_current_page);
             int record_on_page = Integer.parseInt(get_record_on_page);
-            int totalRecord = crmServices.getTotalRecordProject(keyword_search);
+            int totalRecord = ProjectServiceImp.getInstance().getTotalRecordProject(keyword_search);
             int totalPage = (int) Math.ceil((float) totalRecord / (float) record_on_page);
 
-            List<Project> projects = crmServices.getProjectByKeyword(keyword_search, current_page, record_on_page);
+            List<Project> projects = ProjectServiceImp.getInstance().getProjectByKeyword(keyword_search, current_page, record_on_page);
 
             req.setAttribute("keyword_search", keyword_search);
             req.setAttribute("record_on_page", record_on_page);
@@ -134,7 +130,7 @@ public class ProjectController extends HttpServlet {
     private void getDelete(HttpServletRequest req, HttpServletResponse resp) {
         try {
             int id = Integer.valueOf(req.getParameter("id"));
-            crmServices.deleteProject(id);
+            ProjectServiceImp.getInstance().deleteProject(id);
             resp.sendRedirect(req.getContextPath() + UrlsController.URL_PROJECT_VIEW);
         } catch (Exception e) {
             e.printStackTrace();
@@ -146,7 +142,7 @@ public class ProjectController extends HttpServlet {
             String project_id = req.getParameter("id");
             System.out.println("getEdit project_id: " + project_id);
 
-            Project project = crmServices.getProjectById(Integer.parseInt(project_id));
+            Project project = ProjectServiceImp.getInstance().getProjectById(Integer.parseInt(project_id));
 
             req.setAttribute("projects", project);
 
@@ -164,7 +160,7 @@ public class ProjectController extends HttpServlet {
             project.setStart_date(LocalDate.parse(req.getParameter("start_date")));
             project.setEnd_date(LocalDate.parse(req.getParameter("end_date")));
 
-            crmServices.insertProject(project);
+            ProjectServiceImp.getInstance().insertProject(project);
             req.setAttribute("message", "tao project thanh cong");
 
             this.doGet(req, resp);
@@ -185,7 +181,7 @@ public class ProjectController extends HttpServlet {
             if (project_id != null && !project_id.isEmpty()) {
 
                 project.setId(Integer.parseInt(project_id));
-                crmServices.updateProject(project);
+                ProjectServiceImp.getInstance().updateProject(project);
                 req.setAttribute("message", "edit project thanh cong");
 
             } else {

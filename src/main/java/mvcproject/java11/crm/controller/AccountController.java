@@ -1,18 +1,19 @@
 package mvcproject.java11.crm.controller;
 
-import java.io.IOException;
-import java.util.List;
+import mvcproject.java11.crm.model.Account;
+import mvcproject.java11.crm.services.AccountServiceImp;
+import mvcproject.java11.crm.services.RoleServiceImp;
+import mvcproject.java11.crm.services.TaskServiceImp;
+import mvcproject.java11.crm.urls.UrlsController;
+import mvcproject.java11.crm.urls.UrlsJSP;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import mvcproject.java11.crm.model.Account;
-import mvcproject.java11.crm.services.CrmServices;
-import mvcproject.java11.crm.urls.UrlsController;
-import mvcproject.java11.crm.urls.UrlsJSP;
+import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "account-controller", urlPatterns = {UrlsController.URL_ACCOUNT_VIEW,
         UrlsController.URL_ACCOUNT_EDIT, UrlsController.URL_ACCOUNT_DELETE, UrlsController.URL_ACCOUNT_ADD,
@@ -20,12 +21,10 @@ import mvcproject.java11.crm.urls.UrlsJSP;
 public class AccountController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private static CrmServices crmServices;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        crmServices = CrmServices.getINSTANCE();
     }
 
     @Override
@@ -75,14 +74,14 @@ public class AccountController extends HttpServlet {
         String _accountId = req.getParameter("id");
         int accountId = Integer.parseInt(_accountId);
 
-        req.setAttribute("account", crmServices.getAccountById(accountId));
-        req.setAttribute("taskByAccountId", crmServices.getTaskByAccountId(accountId));
+        req.setAttribute("account", AccountServiceImp.getInstance().getAccountById(accountId));
+        req.setAttribute("taskByAccountId", TaskServiceImp.getInstance().getTaskByAccountId(accountId));
 
         req.getRequestDispatcher(UrlsJSP.URL_ACCOUNT_DETAIL).forward(req, resp);
     }
 
     private void getAdd(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("role", crmServices.getAllRole());
+        req.setAttribute("role", RoleServiceImp.getInstance().getAllRole());
         req.getRequestDispatcher(UrlsJSP.URL_ACCOUNT_ADD).forward(req, resp);
     }
 
@@ -113,10 +112,10 @@ public class AccountController extends HttpServlet {
 
             int current_page = Integer.parseInt(_current_page);
             int record_on_page = Integer.parseInt(_record_on_page);
-            int totalRecord = crmServices.getTotalRecordAccount(keyword_search);
+            int totalRecord = AccountServiceImp.getInstance().getTotalRecordAccount(keyword_search);
             int totalPage = (int) Math.ceil((float) totalRecord / (float) record_on_page);
 
-            List<Account> accounts = crmServices.getAccountByKeyword(keyword_search, record_on_page, current_page);
+            List<Account> accounts = AccountServiceImp.getInstance().getAccountByKeyword(keyword_search, record_on_page, current_page);
 
             req.setAttribute("keyword_search", keyword_search);
             req.setAttribute("current_page", current_page);
@@ -135,7 +134,7 @@ public class AccountController extends HttpServlet {
         try {
             int id = Integer.valueOf(req.getParameter("id"));
 
-            crmServices.deleteAccount(id);
+            AccountServiceImp.getInstance().deleteAccount(id);
             req.setAttribute("message", "success!");
 
             resp.sendRedirect(req.getContextPath() + UrlsController.URL_ACCOUNT_VIEW);
@@ -149,9 +148,9 @@ public class AccountController extends HttpServlet {
             String account_id = req.getParameter("id");
             System.out.println("getEdit account_id: " + account_id);
 
-            Account account = crmServices.getAccountById(Integer.parseInt(account_id));
+            Account account = AccountServiceImp.getInstance().getAccountById(Integer.parseInt(account_id));
 
-            req.setAttribute("role", crmServices.getAllRole());
+            req.setAttribute("role", RoleServiceImp.getInstance().getAllRole());
             req.setAttribute("accountrs", account);
 
             req.getRequestDispatcher(UrlsJSP.URL_ACCOUNT_EDIT).include(req, resp);
@@ -166,10 +165,10 @@ public class AccountController extends HttpServlet {
 
             Account account = getAccountByParemeter(req);
 
-            if (crmServices.existedByEmail(account.getEmail())) {
+            if (AccountServiceImp.getInstance().existedByEmail(account.getEmail())) {
                 req.setAttribute("message", "Email đã tồn tại");
             } else {
-                crmServices.insertAccount(account);
+                AccountServiceImp.getInstance().insertAccount(account);
                 req.setAttribute("message", "tao tài khoản thành công");
             }
 
@@ -188,7 +187,7 @@ public class AccountController extends HttpServlet {
             if (account_id != null && !account_id.isEmpty()) {
 
                 account.setId(Integer.parseInt(account_id));
-                crmServices.updateAccount(account);
+                AccountServiceImp.getInstance().updateAccount(account);
                 req.setAttribute("message", "update thanh cong");
 
             } else {
@@ -210,7 +209,6 @@ public class AccountController extends HttpServlet {
         String phone = req.getParameter("phone");
         String address = req.getParameter("address");
         String role_id = req.getParameter("role_id");
-
-        return new Account(fullname, email, password, phone, address, Integer.parseInt(role_id));
+        return new Account(email, password, fullname, phone, address, Integer.parseInt(role_id));
     }
 }
